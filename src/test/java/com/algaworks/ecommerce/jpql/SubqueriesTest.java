@@ -10,12 +10,15 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 class SubqueriesTest extends EntityManagerTest {
-
+    /*
+        Subqueries são utilizadas quando não temos a informação necessaria em nossa base
+        para aplicar nossos filtros, Ex: O maior preço entre os produtos
+    */
     @Test
     void pesquisarComAny() {
          /* Produtos que já foram vendidos por um preço diferente do atual
             String jpql = "select p from Produto p where" +
-                    " p.preco <> ALL (select precoProduto from ItemPedido where produto = p)"
+                    " p.preco <> ANY (select precoProduto from ItemPedido where produto = p)"
           */
 
          // Produtos que já foram vendido, pelo menos, uma vez pelo preço atual - ANY ou SOME
@@ -34,10 +37,12 @@ class SubqueriesTest extends EntityManagerTest {
     void pesquisarComAll() {
         /* Produtos que sempre foram vendidos pelo preço atual
             String jpql = "select p from Produto p where" +
-                    " p.preco = ALL (select precoProduto from ItemPedido where produto = p)
+                    " p.preco = ALL (select precoProduto from ItemPedido where produto = p)" +
+                    " and exists (select 1 from ItemPedido where produto = p)"
          * Produtos que não foram vendidos mais depois que encareceram
             String jpql = "select p from Produto p where" +
-                " p.preco > ALL (select precoProduto from ItemPedido where produto = p)"
+                " p.preco > ALL (select precoProduto from ItemPedido where produto = p)" +
+                " and exists (select 1 from ItemPedido where produto = p)"
         */
         // Produtos que sempre foram vendidos pelo mesmo preço
         String jpql = "select distinct p from ItemPedido ip join ip.produto p where" +
@@ -54,7 +59,7 @@ class SubqueriesTest extends EntityManagerTest {
 
     @Test
     void pesquisarComExistsDesafio() {
-        // Produtos que não foram vendidos com o preço atual
+        // Produtos que foram vendidos com o preço diferente do preço atual
         String jpql = "select p from Produto p where exists" +
                 " (select 1 from ItemPedido ip2" +
                 " where ip2.produto = p" +
@@ -141,7 +146,7 @@ class SubqueriesTest extends EntityManagerTest {
 */
         // Bons clientes versão 2
         String jpql = "select c from Cliente c" +
-                " where 500 < (select sum(p.total) from Pedido p where p.cliente = c)";
+                " where 2000 < (select sum(p.total) from Pedido p where p.cliente = c)";
 
         TypedQuery<Cliente> typedQuery = entityManager.createQuery(jpql, Cliente.class);
 
