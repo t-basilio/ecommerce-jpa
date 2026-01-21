@@ -10,9 +10,14 @@ import java.util.Map;
 
 @Getter
 @Setter
+@NamedStoredProcedureQuery(name = "compraram_acima_media", procedureName = "compraram_acima_media",
+        parameters = @StoredProcedureParameter(name = "ano", type = Integer.class, mode = ParameterMode.IN),
+        resultClasses = Cliente.class
+)
 @SecondaryTable(name = "cliente_detalhe",
         pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id"),
-        foreignKey = @ForeignKey(name = "fk_cliente_detalhe_cliente"))
+        foreignKey = @ForeignKey(name = "fk_cliente_detalhe_cliente")
+)
 @Entity
 @Table(name = "cliente",
         uniqueConstraints = { @UniqueConstraint(name = "unq_cpf", columnNames = { "cpf" }) },
