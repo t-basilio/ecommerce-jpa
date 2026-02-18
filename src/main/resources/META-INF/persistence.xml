@@ -5,9 +5,13 @@
              version="3.0">
 
     <persistence-unit name="Ecommerce-PU" >
+<!--        <jta-data-source>projetoDS</jta-data-source>-->
+
         <mapping-file>META-INF/consultas/pedido.xml</mapping-file>
         <mapping-file>META-INF/consultas/produto.xml</mapping-file>
         <mapping-file>META-INF/consultas/categoria.xml</mapping-file>
+
+        <validation-mode>CALLBACK</validation-mode>
 
         <properties>
             <property name="jakarta.persistence.jdbc.url"
@@ -15,6 +19,11 @@
             <property name="jakarta.persistence.jdbc.user" value="root" />
             <property name="jakarta.persistence.jdbc.password" value="" />
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+
+
+            <property name="hibernate.hikari.maximumPoolSize" value="16"/>
+            <property name="hibernate.connection.provider_class"
+                      value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider"/>
 
             <property name="jakarta.persistence.schema-generation.database.action"
                       value="none"/>
