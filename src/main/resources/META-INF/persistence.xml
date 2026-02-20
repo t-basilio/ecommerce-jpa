@@ -6,11 +6,11 @@
 
     <persistence-unit name="Ecommerce-PU" >
 <!--        <jta-data-source>projetoDS</jta-data-source>-->
-
         <mapping-file>META-INF/consultas/pedido.xml</mapping-file>
         <mapping-file>META-INF/consultas/produto.xml</mapping-file>
         <mapping-file>META-INF/consultas/categoria.xml</mapping-file>
 
+        <shared-cache-mode>ALL</shared-cache-mode>
         <validation-mode>CALLBACK</validation-mode>
 
         <properties>
@@ -24,6 +24,10 @@
             <property name="hibernate.hikari.maximumPoolSize" value="16"/>
             <property name="hibernate.connection.provider_class"
                       value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider"/>
+
+            <property name="hibernate.cache.region.factory_class" value="jcache" />
+            <property name="hibernate.jakarta.cache.provider" value="org.ehcache.jsr107.EhcacheCachingProvider" />
+            <property name="hibernate.javax.cache.uri" value="META-INF/ehcache.xml"/>
 
             <property name="jakarta.persistence.schema-generation.database.action"
                       value="none"/>

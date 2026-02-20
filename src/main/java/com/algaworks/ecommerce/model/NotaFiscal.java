@@ -16,7 +16,7 @@ public class NotaFiscal extends EntidadeBaseInteger{
 
     @NotNull
     @MapsId
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "pedido_id",nullable = false,
             foreignKey = @ForeignKey(name = "fk_nota_fiscal_pedido"))
     private Pedido pedido;
