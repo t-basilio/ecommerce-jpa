@@ -3,16 +3,21 @@ package com.algaworks.ecommerce.criteria;
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.dto.ItemPedidoDTO;
 import com.algaworks.ecommerce.dto.ProdutoDTO;
-import com.algaworks.ecommerce.model.*;
+import com.algaworks.ecommerce.model.Cliente;
 import com.algaworks.ecommerce.model.Cliente_;
+import com.algaworks.ecommerce.model.ItemPedido;
+import com.algaworks.ecommerce.model.Pedido;
 import com.algaworks.ecommerce.model.Pedido_;
+import com.algaworks.ecommerce.model.Produto;
 import jakarta.persistence.Tuple;
 import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Selection;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 

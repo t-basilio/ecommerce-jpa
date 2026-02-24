@@ -1,17 +1,15 @@
 package com.algaworks.ecommerce;
 
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 
-public class EntityManagerTest extends EntityManagerFactoryTest{
+import java.util.Arrays;
+
+public class EntityManagerFactoryTest {
 
     protected static EntityManagerFactory entityManagerFactory;
-    protected EntityManager entityManager;
 
     @BeforeAll
     static void setUpBeforAll() {
@@ -23,14 +21,14 @@ public class EntityManagerTest extends EntityManagerFactoryTest{
         entityManagerFactory.close();
     }
 
-    @BeforeEach
-    void setUp() {
-        entityManager = entityManagerFactory.createEntityManager();
+    public static void log(Object obj, Object... args) {
+        System.out.printf("[LOG %s] %s, %s%n", System.currentTimeMillis(), obj, Arrays.toString(args));
     }
 
-    @AfterEach
-    void tearDown() {
-        entityManager.close();
+    public static void esperar(int segundos) {
+        try {
+            Thread.sleep(segundos * 1000L);
+        } catch (InterruptedException ignored) {}
     }
 
 }

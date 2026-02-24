@@ -1,0 +1,14 @@
+<tenants>
+    <tenant name="algaworks_ecommerce">
+        <url>jdbc:mysql://localhost/algaworks_ecommerce?createDatabaseIfNotExist=true&amp;useTimezone=true&amp;serverTimezone=UTC</url>
+        <user>root</user>
+        <password></password>
+        <poolSize>16</poolSize>
+    </tenant>
+    <tenant name="loja_ecommerce">
+        <url>jdbc:mysql://127.0.0.1/loja_ecommerce?createDatabaseIfNotExist=true&amp;useTimezone=true&amp;serverTimezone=UTC</url>
+        <user>root</user>
+        <password></password>
+        <poolSize>8</poolSize>
+    </tenant>
+</tenants>
