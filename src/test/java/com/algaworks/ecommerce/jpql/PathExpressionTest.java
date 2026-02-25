@@ -29,11 +29,11 @@ class PathExpressionTest extends EntityManagerTest {
     void fazerPathExpression() {
         String jpql = "select p.cliente.nome from Pedido p";
 
-        TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+        TypedQuery<String> typedQuery = entityManager.createQuery(jpql, String.class);
 
-        List<Object[]> lista = typedQuery.getResultList();
+        List<String> lista = typedQuery.getResultList();
 
-        lista.forEach(arr -> System.out.println(arr[0]));
+        lista.forEach(System.out::println);
 
         Assertions.assertFalse(lista.isEmpty());
     }

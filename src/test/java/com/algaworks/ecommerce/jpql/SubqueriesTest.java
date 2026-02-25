@@ -23,7 +23,7 @@ class SubqueriesTest extends EntityManagerTest {
 
          // Produtos que já foram vendido, pelo menos, uma vez pelo preço atual - ANY ou SOME
           String jpql = "select p from Produto p where" +
-                " p.preco = ANY (select precoProduto from ItemPedido where produto = p)";
+                " p.preco = ANY (select ip.precoProduto from ItemPedido ip where ip.produto = p)";
 
         TypedQuery<Produto> typedQuery = entityManager.createQuery(jpql, Produto.class);
 
@@ -47,7 +47,7 @@ class SubqueriesTest extends EntityManagerTest {
         // Produtos que sempre foram vendidos pelo mesmo preço
         String jpql = "select distinct p from ItemPedido ip join ip.produto p where" +
                 " ip.precoProduto = ALL" +
-                " (select precoProduto from ItemPedido ip2 where produto = p and ip2.id <> ip.id)";
+                " (select ip2.precoProduto from ItemPedido ip2 where ip2.produto = p and ip2.id <> ip.id)";
 
         TypedQuery<Produto> typedQuery = entityManager.createQuery(jpql, Produto.class);
 

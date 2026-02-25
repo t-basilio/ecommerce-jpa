@@ -85,7 +85,7 @@ class BasicoJPQLTest extends EntityManagerTest {
 
     @Test
     void projetarOResultado() {
-        String jpql = "select id, nome from Produto";
+        String jpql = "select p.id, p.nome from Produto p";
         TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
         List<Object[]> lista = typedQuery.getResultList();
         Assertions.assertEquals(2, lista.get(0).length);
@@ -98,7 +98,7 @@ class BasicoJPQLTest extends EntityManagerTest {
 
     @Test
     void projetarNoDTO() {
-        String jpql = "select new com.algaworks.ecommerce.dto.ProdutoDTO(id, nome) from Produto";
+        String jpql = "select new com.algaworks.ecommerce.dto.ProdutoDTO(p.id, p.nome) from Produto p";
         TypedQuery<ProdutoDTO> typedQuery = entityManager.createQuery(jpql, ProdutoDTO.class);
         List<ProdutoDTO> lista = typedQuery.getResultList();
         Assertions.assertFalse(lista.isEmpty());

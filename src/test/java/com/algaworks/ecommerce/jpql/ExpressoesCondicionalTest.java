@@ -22,7 +22,7 @@ class ExpressoesCondicionalTest extends EntityManagerTest {
         Cliente cliente2 = entityManager.find(Cliente.class, 2);
         List<Cliente> clientes = Arrays.asList(cliente1, cliente2);
 
-        String jpql = "select p from Pedido p where p.cliente in (:clientes)";
+        String jpql = "select p from Pedido p where p.cliente in :clientes";
 
         TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
         typedQuery.setParameter("clientes", clientes);
@@ -46,8 +46,8 @@ class ExpressoesCondicionalTest extends EntityManagerTest {
         */
         String jpql = "select p.id," +
                 " case p.status" +
-                "   when 'PAGO' then 'Está pago'" +
-                "   when 'CANCELADO' then 'Foi cancelado'" +
+                "   when com.algaworks.ecommerce.model.StatusPedido.PAGO then 'Está pago'" +
+                "   when com.algaworks.ecommerce.model.StatusPedido.CANCELADO then 'Foi cancelado'" +
                 "   else 'Está aguardando'" +
                 " end" +
                 " from Pedido p";

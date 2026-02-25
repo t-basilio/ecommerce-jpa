@@ -22,11 +22,11 @@ class PassandoParametrosTest extends EntityManagerTest {
     @Test
     void passarParametro() {
         String jpql = "select p from Pedido p join p.pagamento pag " +
-                "where p.id = :pedidoId and pag.status = ?1";
+                "where p.id = ?1 and pag.status = ?2";
 
         TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
-        typedQuery.setParameter("pedidoId", 3);
-        typedQuery.setParameter(1, StatusPagamento.RECEBIDO);
+        typedQuery.setParameter(1, 3);
+        typedQuery.setParameter(2, StatusPagamento.RECEBIDO);
 
 
         List<Pedido> lista = typedQuery.getResultList();

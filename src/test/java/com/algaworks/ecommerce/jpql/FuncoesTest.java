@@ -27,7 +27,7 @@ class FuncoesTest extends EntityManagerTest {
     @Test
     void aplicarFuncaoNativas() {
 
-        String jpql = "select function('dayname', p.dataCriacao), p.total from Pedido p" +
+        String jpql = "select function('to_char', p.dataCriacao, 'Day'), p.total from Pedido p" +
                 " where function('acima_media_faturamento', p.total) = 1";
 
         TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
@@ -77,8 +77,9 @@ class FuncoesTest extends EntityManagerTest {
         // year(p.dataCriacao), month(p.dataCriacao), day(p.dataCriacao)
         // hour(p.dataCriacao), minute(p.dataCriacao), second(p.dataCriacao)
 
-        String jpql = "select hour(p.dataCriacao), minute(p.dataCriacao), second(p.dataCriacao) from Pedido p" +
-                " where hour(p.dataCriacao) > 15";
+        String jpql = "select extract(year from p.dataCriacao), extract(minute from p.dataCriacao)," +
+                " extract(second from p.dataCriacao) from Pedido p" +
+                " where extract(hour from p.dataCriacao) > 15";
 
         TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
 

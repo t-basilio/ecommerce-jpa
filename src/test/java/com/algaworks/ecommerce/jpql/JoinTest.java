@@ -31,7 +31,8 @@ class JoinTest extends EntityManagerTest {
          * Com a clausula ON: o filtro é aplicado apenas nos registros da tabela á direita(Pagamento)
          * Com a clausula WHERE: o filtro é aplicado em toda a querie trazendo apenas registros correspondentes
         */
-        String jpql = "select p, pag from Pedido p left join p.pagamento pag on pag.status = 'PROCESSANDO'";
+        String jpql = "select p, pag from Pedido p left join p.pagamento pag" +
+                " on pag.status = com.algaworks.ecommerce.model.StatusPagamento.PROCESSANDO";
 
         TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
 

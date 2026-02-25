@@ -14,6 +14,12 @@ import lombok.Setter;
 @Table(name = "pagamento")
 public abstract class Pagamento extends EntidadeBaseInteger{
 
+    @Id
+    private Integer id;
+
+    @Version
+    private Integer versao;
+
     @NotNull
     @MapsId
     @OneToOne(optional = false)

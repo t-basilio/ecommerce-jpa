@@ -11,8 +11,10 @@ import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Length;
+import org.hibernate.annotations.JdbcTypeCode;
 
 import java.math.BigDecimal;
+import java.sql.Types;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -51,8 +53,8 @@ import java.util.List;
 @EntityListeners({ GenericoListener.class })
 @Entity
 @Table(name = "produto",
-        uniqueConstraints = { @UniqueConstraint(name = "unq_nome", columnNames = "nome") },
-        indexes = { @Index(name = "idx_nome", columnList = "nome") })
+        uniqueConstraints = { @UniqueConstraint(name = "unq_produto_nome", columnNames = "nome") },
+        indexes = { @Index(name = "idx_produto_nome", columnList = "nome") })
 public class Produto extends EntidadeBaseInteger {
 
     @NotNull
@@ -69,14 +71,15 @@ public class Produto extends EntidadeBaseInteger {
     private String nome;
 
     @Lob
-    @Column(length = Length.LONG32)
+    @Column(length = 2147483647)
     private String descricao;
 
     @Positive
     private BigDecimal preco;
 
+    //@Column(columnDefinition = "MEDIUMBLOB")
     @Lob
-    @Column(columnDefinition = "MEDIUMBLOB")
+    @JdbcTypeCode(Types.VARBINARY)
     private byte [] foto;
 
     @Convert(converter = BooleanToSimNaoConverter.class)

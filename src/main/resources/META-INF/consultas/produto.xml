@@ -6,7 +6,7 @@
         version="2.2">
 
     <named-query name="Produto.buscarMaiorPreco">
-        <query>select p from Produto p where p.preco = (select max(preco) from Produto)</query>
+        <query>select p from Produto p where p.preco = (select max(p2.preco) from Produto p2)</query>
     </named-query>
 
 </entity-mappings>

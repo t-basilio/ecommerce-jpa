@@ -39,8 +39,8 @@ class GroupByTest extends EntityManagerTest {
         */
         // Total de vendas por cliente nos ultimos 3 meses:
         String jpql = "select c.nome, sum(p.total) from Pedido p join p.cliente c" +
-                " where year(p.dataCriacao) = year(current_date)" +
-                " and month(p.dataCriacao) >= (month(current_date) - 3)" +
+                " where extract(year from p.dataCriacao) = extract(year from current_date)" +
+                " and extract(month from p.dataCriacao) >= (extract(month from current_date) - 3)" +
                 " group by c.id";
 
         TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
@@ -65,9 +65,11 @@ class GroupByTest extends EntityManagerTest {
                 "select c.nome, sum(p.total) from Pedido p join p.cliente c group by c.id"
         */
         // Total de vendas por dia e por categoria:
-        String jpql = "select concat(date(p.dataCriacao), ' | ', c.nome), sum(ip.precoProduto * ip.quantidade)" +
+        String jpql = "select concat(function('to_char', p.dataCriacao, 'DD/MM/YYYY'), ' | ', c.nome)," +
+                " sum(ip.precoProduto * ip.quantidade)" +
                 " from ItemPedido ip join ip.pedido p join ip.produto pro join pro.categorias c" +
-                " where p.status = 'PAGO' group by concat(date(p.dataCriacao), ' | ', c.nome)";
+                " where p.status = com.algaworks.ecommerce.model.StatusPedido.PAGO" +
+                " group by p.dataCriacao, c.nome";
 
         TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
 
